@@ -3,10 +3,14 @@ import { useEffect, useState } from 'react';
 
 function App() {
   const [usuarios, setUsuarios] = useState([]);
+  const apiUrl = window.ENV?.API_URL || import.meta.env.VITE_API_URL;
 
   useEffect(() => {
-    fetch(import.meta.env.VITE_API_URL)
-      .then(res => res.json())
+    fetch(apiUrl)
+      .then(res => {
+        console.log("llamada", res);
+        return res.json()
+      })
       .then(data => setUsuarios(data))
       .catch(err => console.error('Error:', err));
   }, []);
